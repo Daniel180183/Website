@@ -1,0 +1,121 @@
+
+Lektion 1: HTML (Hyper Text Markup Language)
+
+    Auszeichnungssprache mit der die Struktur einer Website beschrieben wird.
+
+<!DOCTYPE html> Teilt dem Browser mit, dass es sich um ein HTML5-Dokument handelt.
+
+Textdesign:
+    <h1>    wichtigste Überschrift
+    <h2>    Unterabschnitt
+    <h3>    Unter-Unterabschnitt
+    <p>     Absatz
+    <a>     Link
+    href    Attribut: Ziel eines Links
+    <br>    Zeilenumbruch
+
+Links:
+    id -> Sprungmarke: eindeutige Kennzeichnung eines Elements
+    <h3 id="installation">1. Installation</h3>
+    <a href="#installation">1. Installation</a>
+
+Bilder:
+    <img src="screenshot.png" alt="Screenshot des Ren'Py Image Positioning Tools">
+    <img    Bild
+    src     source (Quelle)
+    alt     Beschreibung des Bildes:    Wird angezeigt, wenn das Bild nicht
+                                        geladen werden kann oder der Vorlesemodus aktiv ist.
+
+    style="max-width: 100%; height: auto; display: block;"> (innerhalb von figure): block: Sorgt für eine saubere Anordnung von Bild und Bildunterschrift.
+
+Listen:
+    <ul>    ungeordnete Listen, Aufzählungspunkte
+    <ol>    geordnete Liste, Nummerierung
+    <li>    Einzelner Listenpunkt
+
+Verschachtelung:
+    <ul>
+        <li>Installation</li>
+        <li>Bedienung
+            <ul>
+                <li>Image Move Menu</li>
+                <li>Bild laden</li>
+                <li>Position verändern</li>
+            </ul>
+        </li>
+    </ul>
+
+    <small> Eine Schriftgröße kleiner
+
+    target="_blank" Link es wird in einem neuen Tab öffnen
+    rel="noopener noreferrer"   rel beschreibt die Beziehung zwischen Website und
+                                Linkziel
+    noopener    Schutz vor Manipulation: ohne kann eine neu geöffnete Seite über Java-
+                Script auf die ursprüngliche Seite zugreifen.
+    noreferrer  HTTP-Referer (Herkunftsinformationen) werden nicht übertragen.
+
+Tabellen:
+    <table> – Tabelle
+    <tr> – Tabellenzeile
+    <th> – Tabellenüberschrift
+    <td> – Tabellenzelle
+
+text-decoration: none;  Entfernt den Link-Unterstrich
+
+Formulare (Beispiel mit einem Suchfeld.):
+    <form>      Umschließt das Formular.
+    <label>     Beschriftet das Eingabefeld.
+    <input>     Erstellt ein Eingabefeld.
+    <button>    Erstellt einen Button.
+    type="text" bedeutet, dass der Besucher normalen Text eingeben kann.
+    id="search" gibt dem Eingabefeld eine eindeutige Kennung.
+    for="search" verbindet die Beschriftung mit genau diesem Eingabefeld.
+    type="submit" kennzeichnet den Button als Absende-Button.
+
+    <form onsubmit="return false;"> Verhindert, dass das Formular tatsächlich abgeschickt wird (Übergangslösung)
+
+Suche mit JavaScript:
+    <script>
+    1.   function searchWebsite() {
+    2.      let searchTerm = document.getElementById("search").value;
+    3.      alert("Du suchst nach: " + searchTerm);
+        }
+    </script>
+
+    Ablauf:
+        1. Funktion Namens searchWebsite() erstellt.
+        2. Den Inhalt des Suchfeldes auslesen:
+            document.getElementById("search")
+                sucht das HTML-Element mit der ID search.
+
+            .value
+                liest den eingegebenen Text aus.
+
+            alert("Du suchst nach: " + searchTerm);
+                alert() öffnet ein kleines Meldefenster im Browser.
+                + verbindet den Text mit dem eingegebenen Suchbegriff.
+
+JavaScript:
+    Suche:
+        .toLowerCase()  Wandelt Text in Kleinbuchstaben um.
+        getElementsByTagName("tr")  Sucht alle Tabellenzeilen.
+        .textContent    Liest den Text eines HTML-Elements aus.
+        .includes()     Prüft, ob ein Text einen bestimmten Begriff enthält.
+        .style.display = "none" Blendet ein Element aus.
+
+    Sprung:
+        firstMatch  Speichert die erste gefundene Tabellenzeile.
+        null        Bedeuetet zunächst, dass keine Treffer gefunden wurden.
+        scrollIntoView()    Scrollt die zum gefundenen Website zum gefundenen
+                            Element.
+
+        behavior: "smooth"  Sorgt für ein sanftes Scrollen.
+        block: "center"     Positioniert das Ergebnis ungefähr in der
+                            Bildschirmmitte.
+
+
+
+
+
+
+
