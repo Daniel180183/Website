@@ -10,20 +10,66 @@
     <h1>Ren'Py Image Positioning Tool</h1>
 
     <p>Bei der Erstellung von Ren'Py-Projekten störte mich immer wieder, dass ich beim Positionieren von Bildern und anderen Elementen die Koordinaten abschätzen und das Script zur Kontrolle ständig neu laden musste. Um diesen Ablauf komfortabler zu gestalten, habe ich das Ren'Py Image Positioning Tool entwickelt. Damit können während eines laufenden Projektes Bilder geladen sowie deren Größe, Winkel und Position präzise angepasst werden. Die exakten Koordinaten werden anschließend geordnet in einer Datei gespeichert, sodass sie sich bequem in das Projekt-Skript übertragen lassen.</p>
-
-
+    <hr>
+    <br>
+    <h1>Benutzerhandbuch</h1>
+    <hr>
     <h2>Inhalt</h2>
-    <a href="#installation">1. Installation</a>
-    <br>
-    <a href="#start-image-move">2. Image Move Menu öffnen / Skalierung / Position</a>
-    <br>
-    <a href="#load-image">3. Bild laden</a>
+    <ol>
+        <li><a href="#requirements">Voraussetzungen</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#start-image-move">Image Move Menü starten</a></li>
+        <li><a href="#load-image">Bild laden</a></li>
+    </ol>
+
+    <h3 id="requirements">Voraussetzungen</h3>
+    <ul>
+        <li>
+            Installierte Ren'Py-Engine.
+            <ul>
+                <small>
+                    <li>
+                        <a href="https://www.renpy.org/latest.html"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Neueste Version herunterladen
+                        </a>
+                    </li>
+                </small>
+            </ul>
+
+        <li>Ein vorhandenes Ren'Py-Projekt.</li>
+            <ul>
+                <small>
+                    <li>
+                        <a href="Platzhalter für mein Beispielprojekt">
+                            Beispielprojekt herunterladen
+                        </a>
+                    </li>
+                </small>
+            </ul>
+
+        <li>
+            Das im gewünschten Projekt installierte Ren'Py Image Positioning Tool.
+        </li>
+    </ul>
 
 
-    <h2>Benutzerhandbuch</h2>
-    <h3 id="installation">1. Installation</h3>
-    <h3 id="start-image-move">2. Image Move Menu öffnen / Skalierung / Position</h3>
-    <h3 id="load-image">3. Bild laden</h3>
+    <h3 id="installation">Installation</h3>
+
+    <br>
+    <h3 id="start-image-move">Image Move Menu starten</h3>
+    <p>Nach der Installation im gewünschten Projekt sind im laufenden Spiel zwei neue Schaltflächen verfügbar.<br>
+    "Show image move menu" stoppt das Spiel und blendet das Menü der Positionierungstools ein.<br>
+    "Return to main menu" kehrt ohne Abfrage zum Hauptmenü zurück.</p>
+
+    <figure style="text-align: left; margin: 0;">
+        <img src="images/overlay_buttons.png" alt="Bild: Overlay Schaltflächen im laufenden Spiel." style="max-width: 100%; height: auto"; display: block;>
+        <figcaption>Overlay Schaltflächen im laufenden Spiel</figcaption>
+    </figure>
+
+    <br>
+    <h3 id="load-image">Bild laden</h3>
 
 
     <h2>RenPy</h2>
