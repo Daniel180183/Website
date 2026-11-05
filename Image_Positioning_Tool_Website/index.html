@@ -7,12 +7,67 @@
         body {
             margin: 0;
             padding: 0;
-            color: #b4b4b4;
+            color: #c6c6c6;
         }
 
         a {
             color: #2d9d1d;
             text-decoration: none;
+        }
+
+        h1 {
+            color: #22af0e;
+            font-size: 30px;
+        }
+
+        h2 {
+            color: #22af0e;
+            font-size: 24px;
+        }
+
+        h3 {
+            color: #22af0e;
+            font-size: 24px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+
+            scrollbar-color: #2d9d1d #afafaf;
+            scrollbar-width: thin;
+        }
+
+        .zoomable-img {
+            cursor: pointer;
+            width: 600px;
+            height: auto;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            border-radius: 4px
+        }
+
+        .zoomable-img:hover {
+            opacity: 0.70;
+        }
+
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .image-modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
         }
 
     </style>
@@ -25,20 +80,62 @@
 
     <h1>Ren'Py Image Positioning Tool</h1>
 
-    <p>Bei der Erstellung von Ren'Py-Projekten störte mich immer wieder, dass ich beim Positionieren von Bildern und anderen Elementen die Koordinaten abschätzen und das Script zur Kontrolle ständig neu laden musste. Um diesen Ablauf komfortabler zu gestalten, habe ich das Ren'Py Image Positioning Tool entwickelt. Damit können während eines laufenden Projektes Bilder geladen sowie deren Größe, Winkel und Position präzise angepasst werden. Die exakten Koordinaten werden anschließend geordnet in einer Datei gespeichert, sodass sie sich bequem in das Projekt-Skript übertragen lassen.</p>
+    <p>Bei der Erstellung von Ren'Py-Projekten störte mich immer wieder, dass ich beim Positionieren von Bildern die Koordinaten abschätzen und das Script zur Kontrolle ständig neu laden musste. Um diesen Ablauf komfortabler zu gestalten, habe ich das Ren’Py Image Positioning Tool entwickelt. Damit können während eines laufenden Projektes Bilder geladen sowie deren Größe, Winkel und Position präzise angepasst werden. Die exakten Koordinaten und Eigenschaften der Bilder werden anschließend geordnet in einer Datei gespeichert, so dass sie sich bequem in das Projekt-Skript übertragen lassen.</p>
     <hr>
     <h1>Dokumentation</h1>
     <hr>
 
     <h2>Dokumentation durchsuchen</h2>
 
+    <style>
+        #search {
+            background-color: #232629;
+            border: 1px solid #ccc;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: all 0.02s ease;
+            color: #b4b4b4;
+        }
+
+        #search:focus {
+            background-color: #393d41;
+            border-color: #2d9d1d;
+            outline: none;
+            box-shadow: 0 0 20px rgba(17, 61, 11, 0.6);
+        }
+
+        #search_btn {
+            background-color: #393d41;
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            color: #b4b4b4;
+        }
+
+        #search_btn:hover {
+            background: linear-gradient(to bottom, #6a6a6a, #424242);
+            border: 1px solid #2d9d1d;
+            box-shadow: 0 0 20px rgba(17, 61, 11, 0.6);
+            transition: all 0.02s ease;
+        }
+
+        #search_btn:active {
+            background: linear-gradient(to bottom, #2b2b2b, #3d3d3d);
+            border: 1px solid #1a6611;
+            box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.6);
+        }
+
+
+    </style>
+
     <form onsubmit="return false;">
         <label for="search">Suchbegriff: </label>
         <input type="text" id="search" name="search">
-        <button type="button" onclick="searchWebsite()">Suchen</button>
-    </form> <!-- Unterschied submit und button? -->
+        <button type="button" id="search_btn" onclick="searchWebsite()">Suchen</button>
+        <button type="button" id="search_btn" onclick="testFunction()">Test</button>
+    </form>
 
-    <p id="search_result"></p>
+    <p id="search_result">Bitte Suchbegriff eingeben.</p>
 
     <br>
     <hr>
@@ -88,6 +185,8 @@
 
     <h3 id="installation">Installation</h3>
 
+    <p>In Entwicklung...</p>
+
     <br>
     <h3 id="start_image_move">Image Move Menu starten</h3>
     <p>Nach der Installation im gewünschten Projekt sind im laufenden Spiel zwei neue Schaltflächen verfügbar.<br>
@@ -97,12 +196,65 @@
     <figure style="text-align: left; margin: 0;">
         <img src="images/overlay_buttons.png"
             alt="Bild: Overlay Schaltflächen im laufenden Spiel."
-            style="max-width: 100%; height: auto; display: block;">
+            class="zoomable-img"
+            onclick="openModal(this)">
+            <!--width="300"-->
         <figcaption>Overlay Schaltflächen im laufenden Spiel</figcaption>
     </figure>
 
+    <div id="imgModal" class="image-modal" onclick="closeModal()">
+        <img id="modalImg">
+    </div>
+
     <br>
     <h3 id="load_image">Bild laden</h3>
+
+    <p>In Entwicklung...</p>
+
+
+    <style>
+        #function_table_content caption {
+            background-color: #474d52;
+            border: 1px solid #c6c6c6;
+            padding: 12px 10px;
+            font-weight: bold;
+        }
+
+        #function_table_content {
+            border-collapse: collapse;
+        }
+
+        #function_table_content th,
+        #function_table_content td {
+            border: 1px solid #c6c6c6;
+            padding: 10px;
+            text-align: left;
+        }
+
+        #function_table_content th {
+            background-color: #474d52;
+        }
+
+        #function_table_content tr:nth-child(even) td {
+            background-color: #353a3e;
+        }
+
+        #function_table_content tr:nth-child(odd) td {
+            background-color: #2c3034;
+        }
+
+        #function_table_content tr:hover td {
+            background-color: #454c52;
+        }
+
+        #function_table_content mark {
+            background-color: #e6c229;
+            color: #232629;
+            font-weight: bold;
+            padding: 2px;
+            border-radius: 3px;
+        }
+    </style>
 
     <h3 id="function_table">Funktionsübersicht</h3>
     <table id="function_table_content">
@@ -136,7 +288,7 @@
     </table>
 
     <br>
-    <h2>RenPy</h2>
+    <h3>RenPy</h3>
     <a href="https://www.renpy.org">Offizielle Website</a>
     <br>
     <a href="https://www.renpy.org/doc/html/">Dokumentation</a>
@@ -145,38 +297,98 @@
     </div>
 
     <script>
+        function highlightText(element, searchTerm) {
+            let text = element.textContent;
+            let lowerText = text.toLowerCase();
+            let position = 0;
+            let index;
+            let fragment = document.createDocumentFragment();
+
+            while ((index = lowerText.indexOf(searchTerm, position)) !== -1) {
+                fragment.append(
+                    document.createTextNode(text.slice(position, index))
+                );
+
+                let mark = document.createElement("mark");
+
+                mark.textContent = text.slice(index, index + searchTerm.length);
+                fragment.append(mark);
+                position = index + searchTerm.length;
+            }
+
+            fragment.append(
+                document.createTextNode(text.slice(position))
+            );
+
+            element.replaceChildren(fragment);
+        }
+
         function searchWebsite() {
-            let searchTerm = document.getElementById("search").value.toLowerCase();
+            let searchTerm = document.getElementById("search").value.toLowerCase().trim();
 
             let table = document.getElementById("function_table_content");
-
             let rows = table.getElementsByTagName("tr");
-
             let firstMatch = null;
+            let matchCount = 0;
+            let result = document.getElementById("search_result");
+            let oldMarks = table.querySelectorAll("mark");
+
+            oldMarks.forEach(mark => {
+                mark.replaceWith(document.createTextNode(mark.textContent));
+            });
 
             for (let i = 1; i < rows.length; i++) {
 
                 let rowText = rows[i].textContent.toLowerCase();
 
-                if (rowText.includes(searchTerm)) {
-                    rows[i].style.display = "";
+                if (searchTerm !== "" && rowText.includes(searchTerm)) {
+                    matchCount++;
 
                     if (firstMatch === null) {
                         firstMatch = rows[i];
                     }
 
-                } else {
-                    rows[i].style.display = "none";
+                    let cells = rows[i].getElementsByTagName("td");
+
+                    for (let j = 0; j < cells.length; j++) {
+                        highlightText(cells[j], searchTerm);
+                    }
                 }
             }
 
-            if (firstMatch !== null) {
+            if (searchTerm === "") {
+                result.textContent = "Bitte Suchbegriff eingeben.";
+
+            } else if (firstMatch === null) {
+                result.textContent = "Keine Ergebnisse gefunden.";
+
+            } else {
+                result.textContent = matchCount + " Ergebnisse gefunden.";
+
                 firstMatch.scrollIntoView({
-                    behavior: "smooth",
                     block: "center"
                 });
             }
         }
+
+        function openModal(imgElement) {
+            const modal = document.getElementById("imgModal");
+            const modalImg = document.getElementById("modalImg");
+
+            modal.style.display = "flex";
+            modalImg.src = imgElement.src;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("imgModal");
+            modal.style.display = "none";
+        }
+
+        function testFunction() {
+            console.log("Function not in use...")
+        }
+
+
     </script>
 
 

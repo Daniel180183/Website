@@ -96,22 +96,73 @@ Suche mit JavaScript:
                 + verbindet den Text mit dem eingegebenen Suchbegriff.
 
 JavaScript:
+    Grundlagen:
+        let Deklariert eine Variable.
+        == Konvertiert Datentypen bei Bedarf vorher.
+        === Konvertiert nicht.
+
+    Buttons:
+        type="submit"   Lädt die Seite neu oder triggert ein Form-Submit-Event.
+        type="button"   Neutraler Klick-Button der mit einer Logik belegt werden
+                        muss.
+
     Suche:
         .toLowerCase()  Wandelt Text in Kleinbuchstaben um.
         getElementsByTagName("tr")  Sucht alle Tabellenzeilen.
         .textContent    Liest den Text eines HTML-Elements aus.
         .includes()     Prüft, ob ein Text einen bestimmten Begriff enthält.
         .style.display = "none" Blendet ein Element aus.
+        .style.display =    "" Element nimmt wieder den Standardwert an, bzw.
+                            wird nach "none" wieder sichtbar.
+        .trim() Entfernt Leerzeichen am Anfang und Ende einer Eingabe.
 
     Sprung:
         firstMatch  Speichert die erste gefundene Tabellenzeile.
-        null        Bedeuetet zunächst, dass keine Treffer gefunden wurden.
+        null        Bedeutet zunächst, dass keine Treffer gefunden wurden.
         scrollIntoView()    Scrollt die zum gefundenen Website zum gefundenen
                             Element.
 
         behavior: "smooth"  Sorgt für ein sanftes Scrollen.
         block: "center"     Positioniert das Ergebnis ungefähr in der
                             Bildschirmmitte.
+
+    CSS:
+        even Wählt gerade Elemente aus.
+        odd Wählt ungerade Elemente aus.
+        nth-child() Zählt die Elemente innerhalb ihres übergeordneten Elements.
+
+        Scrollbar:
+            /* 1. Die Gesamtbreite der Scrollleiste */
+            ::-webkit-scrollbar {
+                width: 10px;
+            }
+
+            /* 2. Der Hintergrund der Schiene (der Kanal, in dem der Schieber läuft) */
+            ::-webkit-scrollbar-track {
+                background: #2c3034; /* Passend zur Tabelle */
+            }
+
+            /* 3. Thumb im Normalzustand */
+            ::-webkit-scrollbar-thumb {
+                background: #555555; /* Dezentes Grau */
+                border-radius: 5px;  /* Abgerundete Ecken */
+            }
+
+            /* 4. Hover */
+            ::-webkit-scrollbar-thumb:hover {
+                background: #2d9d1d; /* Zum Beispiel dein schöner grüner Akzent-Ton! */
+            }
+
+        Bild auf die Breite des Fensters anpassen:
+            style="max-width: 100%; height: auto; display: block;"
+
+
+    Bild beim Klick vergrößern:
+        onclick="openModal(this)": Jedes Bild, das du so markierst, übergibt sich beim Anklicken selbst an die JavaScript-Funktion. Du kannst diese Klasse (zoomable-img) und den Befehl also beliebig oft für unterschiedliche Bilder auf deiner Seite verwenden – es wird immer dasselbe Overlay genutzt!
+
+        display: flex + justify-content/align-items: Zentriert das vergrößerte Bild perfekt auf dem Bildschirm, egal wie groß der Monitor ist.
+
+        cursor: zoom-in / zoom-out: Gibt dem Nutzer sofort visuelles Feedback, dass hier eine Zoom-Aktion stattfindet.
 
 
 
