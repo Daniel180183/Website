@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>syscrafting.de</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="logo-header">
+    <img src="images/logo_website.png"
+        class="logo-website"
+        alt="Website Logo"
+    >
+    </header>
+
+    <main>
+
+    <nav>
+        <h2><a class="frame-link" href="index.html">Startseite</a></h2>
+    </nav>
+
+    <br>
+    <br>
+    <h1>Ren'Py Image Positioning Tool</h1>
+
+    <p>Bei der Erstellung von Ren'Py-Projekten störte mich immer wieder, dass ich beim Positionieren von Bildern die Koordinaten abschätzen und das Script zur Kontrolle ständig neu laden musste. Um diesen Ablauf komfortabler zu gestalten, habe ich das Ren’Py Image Positioning Tool entwickelt. Damit können während eines laufenden Projektes Bilder geladen sowie deren Größe, Winkel und Position präzise angepasst werden. Die exakten Koordinaten und Eigenschaften der Bilder werden anschließend geordnet in einer Datei gespeichert, so dass sie sich bequem in das Projekt-Skript übertragen lassen.</p>
+    <hr>
+    <h1>Dokumentation</h1>
+    <hr>
+
+    <h2>Dokumentation durchsuchen</h2>
+
+    <form onsubmit="return false;">
+        <label for="search">Suchbegriff: </label>
+        <input type="text" id="search" name="search">
+        <button type="button" id="search_btn" onclick="searchWebsite()">Suchen</button>
+        <button type="button" id="search_btn" onclick="testFunction()">Test</button>
+    </form>
+
+    <p id="search_result">Bitte Suchbegriff eingeben.</p>
+
+    <br>
+    <hr>
+
+    <h2>Inhalt</h2>
+    <ol>
+        <li><a href="#requirements">Voraussetzungen</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#start_image_move">Image Move Menü starten</a></li>
+        <li><a href="#load_image">Bild laden</a></li>
+        <li><a href="#function_table">Funktionsübersicht</a></li>
+    </ol>
+
+    <hr>
+    <h3 id="requirements">Voraussetzungen</h3>
+
+    <ul>
+        <li>
+            <span style="display: inline-block; width: 280px;">Installierte Ren'Py-Engine.</span>
+
+            <span style="font-size: 85%;">
+                <a  href="https://www.renpy.org/latest.html"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    &bull; Neueste Version herunterladen.
+                </a>
+            </span>
+        </li>
+
+        <li>
+            <span style="display: inline-block; width: 280px;">Ein vorhandenes Ren'Py-Projekt.</span>
+
+            <span style="font-size: 85%;">
+                <a  href="Platzhalter für mein Beispielprojekt"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    &bull; Beispielprojekt herunterladen.
+                </a>
+            </span>
+        </li>
+
+        <li>
+            Das im gewünschten Projekt installierte Ren'Py Image Positioning Tool.
+        </li>
+    </ul>
+
+
+    <h3 id="installation">Installation</h3>
+
+    <p>In Entwicklung...</p>
+
+    <br>
+    <h3 id="start_image_move">Image Move Menu starten</h3>
+    <p>Nach der Installation im gewünschten Projekt sind im laufenden Spiel zwei neue Schaltflächen verfügbar.<br>
+    "Show image move menu" stoppt das Spiel und blendet das Menü der Positionierungstools ein.<br>
+    "Return to main menu" kehrt ohne Abfrage zum Hauptmenü zurück.</p>
+
+    <figure style="text-align: left; margin: 0;">
+        <img src="images/overlay_buttons.png"
+            alt="Bild: Overlay Schaltflächen im laufenden Spiel."
+            class="zoomable-img"
+            onclick="openModal(this)">
+        <figcaption>Overlay Schaltflächen im laufenden Spiel</figcaption>
+    </figure>
+
+    <div id="imgModal" class="image-modal" onclick="closeModal()">
+        <img id="modalImg">
+    </div>
+
+    <br>
+    <h3 id="load_image">Bild laden</h3>
+
+    <p>In Entwicklung...</p>
+
+    <h3 id="function_table">Funktionsübersicht</h3>
+    <table id="function_table_content">
+        <caption>Komplette Übersicht aller Funktionen und Anzeigen.</caption>
+
+        <tr>
+            <th>Funktion</th>
+            <th>Beschreibung</th>
+        </tr>
+
+        <tr>
+            <td>Rotate Left (0-360)</td>
+            <td>Dreht das/die Bild(er) nach links.</td>
+        </tr>
+
+        <tr>
+            <td>Rotate Right (0-360)</td>
+            <td>Dreht das/die Bild(er) nach rechts.</td>
+        </tr>
+
+        <tr>
+            <td>Zoom + (0.00-1.00)</td>
+            <td>Vergrößert das/die Bild(er).</td>
+        </tr>
+
+        <tr>
+            <td>Zoom - (0.00-1.00)</td>
+            <td>Verkleinert das/die Bild(er).</td>
+        </tr>
+
+    </table>
+
+    <br>
+    <h3>RenPy</h3>
+    <a href="https://www.renpy.org">Offizielle Website</a><a class="word-distance" href="https://www.renpy.org/doc/html/">Dokumentation</a>
+    <br>
+    <br>
+
+    <br>
+    <br>
+    <hr>
+
+    </main>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+

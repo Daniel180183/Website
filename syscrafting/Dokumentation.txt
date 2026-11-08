@@ -165,6 +165,15 @@ JavaScript:
         cursor: zoom-in / zoom-out: Gibt dem Nutzer sofort visuelles Feedback, dass hier eine Zoom-Aktion stattfindet.
 
 
+        Farben	color, background-color, opacity
+        Abstände	margin, padding, gap
+        Rahmen	border, border-radius
+        Schrift	font-size, font-family, font-weight
+        Text	text-align, text-decoration, line-height
+        Größen	width, height, max-width
+        Anordnung	display, position, float
+        Tabellen	border-collapse, table-layout
+        Effekte	box-shadow, transform, transition
 
 
 
