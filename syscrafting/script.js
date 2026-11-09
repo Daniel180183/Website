@@ -125,3 +125,57 @@ window.addEventListener("resize", function() {
 
 updateLogo();
 
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    // Seite beim Laden einblenden
+    document.body.classList.add("fade-in");
+
+    // Alle Links auf der Seite auswählen
+    document.querySelectorAll("a[href]").forEach(function(link) {
+
+        link.addEventListener("click", function(event) {
+
+            // Sonderfälle nicht abfangen
+            if (
+                event.defaultPrevented ||
+                event.button !== 0 ||
+                event.ctrlKey ||
+                event.metaKey ||
+                event.shiftKey ||
+                event.altKey ||
+                link.target ||
+                link.hasAttribute("download")
+            ) {
+                return;
+            }
+
+            const ziel = new URL(link.href, window.location.href);
+
+            // Externe Links nicht abfangen
+            if (ziel.origin !== window.location.origin) {
+                return;
+            }
+
+            // Sprungmarken auf derselben Seite nicht abfangen
+            if (
+                ziel.pathname === window.location.pathname &&
+                ziel.search === window.location.search &&
+                ziel.hash
+            ) {
+                return;
+            }
+
+            // Normales Öffnen verhindern
+            event.preventDefault();
+
+            // Aktuelle Seite ausblenden
+            document.body.classList.add("fade-out");
+
+            // Nach der Animation zur Zielseite wechseln
+            setTimeout(function() {
+                window.location.href = ziel.href;
+            }, 300);
+        });
+    });
+});
