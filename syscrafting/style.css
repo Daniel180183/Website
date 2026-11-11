@@ -1,6 +1,10 @@
 
+html {
+    background-color: #232629;
+}
+
 body {
-    margin: 1;
+    margin: 0;
     padding: 0;
     color: #c6c6c6;
     background-color: #232629;
@@ -8,20 +12,11 @@ body {
     transition: opacity 0.3s ease-in-out;
 }
 
-body.fade-in {
-    animation: fadeIn 0.4s ease-in-out;
+html.fade-in {
+    opacity: 1;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-body.fade-out {
+html.fade-out {
     opacity: 0;
 }
 

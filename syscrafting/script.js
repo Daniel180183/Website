@@ -126,56 +126,60 @@ window.addEventListener("resize", function() {
 updateLogo();
 
 
-document.addEventListener("DOMContentLoaded", function() {
 
-    // Seite beim Laden einblenden
-    document.body.classList.add("fade-in");
+// =====================================
+// Fade In / Fade Out
+// =====================================
 
-    // Alle Links auf der Seite auswählen
-    document.querySelectorAll("a[href]").forEach(function(link) {
+// Interne Links behandeln
+document.querySelectorAll("a[href]").forEach(function(link) {
 
-        link.addEventListener("click", function(event) {
+    link.addEventListener("click", function(event) {
 
-            // Sonderfälle nicht abfangen
-            if (
-                event.defaultPrevented ||
-                event.button !== 0 ||
-                event.ctrlKey ||
-                event.metaKey ||
-                event.shiftKey ||
-                event.altKey ||
-                link.target ||
-                link.hasAttribute("download")
-            ) {
-                return;
-            }
+        // Sonderfälle ausschließen
+        if (
+            event.defaultPrevented ||
+            event.button !== 0 ||
+            event.ctrlKey ||
+            event.metaKey ||
+            event.shiftKey ||
+            event.altKey ||
+            link.target ||
+            link.hasAttribute("download")
+        ) {
+            return;
+        }
 
-            const ziel = new URL(link.href, window.location.href);
+        const ziel = new URL(link.href, window.location.href);
 
-            // Externe Links nicht abfangen
-            if (ziel.origin !== window.location.origin) {
-                return;
-            }
+        // Externe Links ausschließen
+        if (ziel.origin !== window.location.origin) {
+            return;
+        }
 
-            // Sprungmarken auf derselben Seite nicht abfangen
-            if (
-                ziel.pathname === window.location.pathname &&
-                ziel.search === window.location.search &&
-                ziel.hash
-            ) {
-                return;
-            }
+        // Sprungmarken auf derselben Seite ausschließen
+        if (
+            ziel.pathname === window.location.pathname &&
+            ziel.search === window.location.search
+        ) {
+            return;
+        }
 
-            // Normales Öffnen verhindern
-            event.preventDefault();
+        // Normale Navigation verhindern
+        event.preventDefault();
 
-            // Aktuelle Seite ausblenden
-            document.body.classList.add("fade-out");
+        // Fade-out starten
+        document.body.classList.add("fade-out");
 
-            // Nach der Animation zur Zielseite wechseln
-            setTimeout(function() {
-                window.location.href = ziel.href;
-            }, 300);
-        });
+        // Nach 0,3 Sekunden wechseln
+        setTimeout(function() {
+            window.location.href = ziel.href;
+        }, 300);
+
     });
+
 });
+
+
+
+
