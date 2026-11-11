@@ -86,10 +86,6 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-function testFunction() {
-    console.log("Function not in use...")
-}
-
 const logo = document.querySelector(".logo-website");
 
 let ticking = false;
@@ -126,59 +122,18 @@ window.addEventListener("resize", function() {
 updateLogo();
 
 
+function fadeIn() {
+    console.log("Fade in.");
+}
 
-// =====================================
-// Fade In / Fade Out
-// =====================================
+function fadeOut() {
+    const element = document.querySelector(".my-text");
+    element.classList.add("fade-out");
+}
 
-// Interne Links behandeln
-document.querySelectorAll("a[href]").forEach(function(link) {
 
-    link.addEventListener("click", function(event) {
 
-        // Sonderfälle ausschließen
-        if (
-            event.defaultPrevented ||
-            event.button !== 0 ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.shiftKey ||
-            event.altKey ||
-            link.target ||
-            link.hasAttribute("download")
-        ) {
-            return;
-        }
 
-        const ziel = new URL(link.href, window.location.href);
-
-        // Externe Links ausschließen
-        if (ziel.origin !== window.location.origin) {
-            return;
-        }
-
-        // Sprungmarken auf derselben Seite ausschließen
-        if (
-            ziel.pathname === window.location.pathname &&
-            ziel.search === window.location.search
-        ) {
-            return;
-        }
-
-        // Normale Navigation verhindern
-        event.preventDefault();
-
-        // Fade-out starten
-        document.body.classList.add("fade-out");
-
-        // Nach 0,3 Sekunden wechseln
-        setTimeout(function() {
-            window.location.href = ziel.href;
-        }, 300);
-
-    });
-
-});
 
 
 

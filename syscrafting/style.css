@@ -8,16 +8,25 @@ body {
     padding: 0;
     color: #c6c6c6;
     background-color: #232629;
-    opacity: 1;
-    transition: opacity 0.3s ease-in-out;
+/*    opacity: 1;
+    transition: opacity 0.3s ease-in-out;*/
 }
 
-html.fade-in {
+/*html.fade-in {
     opacity: 1;
-}
+}*/
 
-html.fade-out {
+/*html.fade-out {
     opacity: 0;
+}*/
+
+.my-text {
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.my-text.fade-out {
+    opacity: 0 !important;
 }
 
 a {

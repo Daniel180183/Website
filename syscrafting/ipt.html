@@ -6,12 +6,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<!--    <style>
         html {
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
         }
-    </style>
+    </style>-->
 
     <link rel="stylesheet" href="style.css">
     <title>syscrafting.de</title>
@@ -33,7 +33,7 @@
 
     <br>
     <br>
-    <h1>Ren'Py Image Positioning Tool</h1>
+    <h1 class="my-text">Ren'Py Image Positioning Tool</h1>
 
     <p>Bei der Erstellung von Ren'Py-Projekten störte mich immer wieder, dass ich beim Positionieren von Bildern die Koordinaten abschätzen und das Script zur Kontrolle ständig neu laden musste. Um diesen Ablauf komfortabler zu gestalten, habe ich das Ren’Py Image Positioning Tool entwickelt. Damit können während eines laufenden Projektes Bilder geladen sowie deren Größe, Winkel und Position präzise angepasst werden. Die exakten Koordinaten und Eigenschaften der Bilder werden anschließend geordnet in einer Datei gespeichert, so dass sie sich bequem in das Projekt-Skript übertragen lassen.</p>
     <hr>
@@ -43,10 +43,13 @@
     <h2>Dokumentation durchsuchen</h2>
 
     <form onsubmit="return false;">
-        <label for="search">Suchbegriff: </label>
-        <input type="text" id="search" name="search">
-        <button type="button" id="search_btn" onclick="searchWebsite()">Suchen</button>
-        <button type="button" id="search_btn" onclick="testFunction()">Test</button>
+        <div style="display: flex; gap: 10px;">
+            <label for="search">Suchbegriff: </label>
+            <input type="text" id="search" name="search">
+            <button type="button" id="search_btn" onclick="searchWebsite()">Suchen</button>
+            <button type="button" id="search_btn" onclick="fadeIn()">Fade in</button>
+            <button type="button" id="search_btn" onclick="fadeOut()">Fade out</button>
+        </div>
     </form>
 
     <p id="search_result">Bitte Suchbegriff eingeben.</p>
