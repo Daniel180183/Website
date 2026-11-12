@@ -121,15 +121,44 @@ window.addEventListener("resize", function() {
 
 updateLogo();
 
+// function fadeOut() {
+//     const element = document.documentElement;
+//
+//     element.classList.remove("fade-in");
+//     element.classList.add("fade-out");
+//
+//     setTimeout(() => {
+//         window.location.href = "index.html";
+//         fadeIn()
+//     }, 1000);
+// }
+//
+// function fadeIn() {
+//     const element = document.documentElement;
+//
+//     element.classList.remove("fade-out");
+//     element.classList.add("fade-in");
+//
+//     setTimeout(() => {
+//         window.location.href = "index.html";
+//     }, 1000);
+// }
 
-function fadeIn() {
-    console.log("Fade in.");
+function testFadeOut() {
+    const element = document.documentElement;
+
+    //element.classList.remove("fade-in");
+    //element.classList.add("fade-out");
+    element.classList.remove("fade-in");
+    element.classList.remove("fade-out");
+    element.classList.add("hide_website");
+
+    setTimeout(() => {
+        console.log("after setTimeout");
+    }, 1000);
 }
 
-function fadeOut() {
-    const element = document.querySelector(".my-text");
-    element.classList.add("fade-out");
-}
+
 
 
 

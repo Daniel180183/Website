@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="hide_website">
 
 <head>
     <meta charset="UTF-8">
@@ -27,13 +27,17 @@
 
     <main>
 
+<!--    <nav>
+        <h2><a class="frame-link" onclick="fadeOut()" href="index.html">Startseite</a></h2>
+    </nav>-->
+
     <nav>
-        <h2><a class="frame-link" href="index.html">Startseite</a></h2>
+        <h2><a class="frame-link" onclick="fadeOut()">Startseite</a></h2>
     </nav>
 
     <br>
     <br>
-    <h1 class="my-text">Ren'Py Image Positioning Tool</h1>
+    <h1>Ren'Py Image Positioning Tool</h1>
 
     <p>Bei der Erstellung von Ren'Py-Projekten störte mich immer wieder, dass ich beim Positionieren von Bildern die Koordinaten abschätzen und das Script zur Kontrolle ständig neu laden musste. Um diesen Ablauf komfortabler zu gestalten, habe ich das Ren’Py Image Positioning Tool entwickelt. Damit können während eines laufenden Projektes Bilder geladen sowie deren Größe, Winkel und Position präzise angepasst werden. Die exakten Koordinaten und Eigenschaften der Bilder werden anschließend geordnet in einer Datei gespeichert, so dass sie sich bequem in das Projekt-Skript übertragen lassen.</p>
     <hr>
@@ -47,8 +51,8 @@
             <label for="search">Suchbegriff: </label>
             <input type="text" id="search" name="search">
             <button type="button" id="search_btn" onclick="searchWebsite()">Suchen</button>
-            <button type="button" id="search_btn" onclick="fadeIn()">Fade in</button>
-            <button type="button" id="search_btn" onclick="fadeOut()">Fade out</button>
+            <button type="button" id="search_btn" onclick="testFadeIn()">Fade in</button>
+            <button type="button" id="search_btn" onclick="testFadeOut()">Fade out</button>
         </div>
     </form>
 
