@@ -1,23 +1,16 @@
 
 <!DOCTYPE html>
-<html lang="de" class="hide_website">
+<html lang="de" class="website">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!--    <style>
-        html {
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-    </style>-->
-
     <link rel="stylesheet" href="style.css">
     <title>syscrafting.de</title>
 </head>
 
-<body class="page-loading">
+<body>
     <header class="logo-header">
     <img src="images/logo_website.png"
         class="logo-website"
@@ -27,12 +20,8 @@
 
     <main>
 
-<!--    <nav>
-        <h2><a class="frame-link" onclick="fadeOut()" href="index.html">Startseite</a></h2>
-    </nav>-->
-
     <nav>
-        <h2><a class="frame-link" onclick="fadeOut()">Startseite</a></h2>
+        <h2><a class="frame-link" onclick="fadeOutCallIndex(event)">Startseite</a></h2>
     </nav>
 
     <br>
@@ -51,7 +40,7 @@
             <label for="search">Suchbegriff: </label>
             <input type="text" id="search" name="search">
             <button type="button" id="search_btn" onclick="searchWebsite()">Suchen</button>
-            <button type="button" id="search_btn" onclick="testFadeIn()">Fade in</button>
+            <button type="button" id="search_btn" onclick="testCallHide()">index.html + hide</button>
             <button type="button" id="search_btn" onclick="testFadeOut()">Fade out</button>
         </div>
     </form>
@@ -175,6 +164,10 @@
     </main>
 
     <script src="script.js"></script>
+
+    <script>
+        hideFadeIn();
+    </script>
 
 </body>
 </html>

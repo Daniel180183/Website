@@ -121,43 +121,38 @@ window.addEventListener("resize", function() {
 
 updateLogo();
 
-// function fadeOut() {
-//     const element = document.documentElement;
-//
-//     element.classList.remove("fade-in");
-//     element.classList.add("fade-out");
-//
-//     setTimeout(() => {
-//         window.location.href = "index.html";
-//         fadeIn()
-//     }, 1000);
-// }
-//
-// function fadeIn() {
-//     const element = document.documentElement;
-//
-//     element.classList.remove("fade-out");
-//     element.classList.add("fade-in");
-//
-//     setTimeout(() => {
-//         window.location.href = "index.html";
-//     }, 1000);
-// }
-
-function testFadeOut() {
+function hideFadeIn() {
     const element = document.documentElement;
-
-    //element.classList.remove("fade-in");
-    //element.classList.add("fade-out");
-    element.classList.remove("fade-in");
-    element.classList.remove("fade-out");
-    element.classList.add("hide_website");
+    element.classList.add("hide");
 
     setTimeout(() => {
-        console.log("after setTimeout");
-    }, 1000);
+        element.classList.remove("fade-out");
+        element.classList.remove("hide");
+        element.classList.add("fade-in");
+    }, 1);
 }
 
+function fadeOutCallIpt() {
+    const element = document.documentElement;
+    element.classList.remove("fade-out");
+    element.classList.remove("hide");
+    element.classList.add("fade-out");
+
+    setTimeout(() => {
+        window.location.href = "ipt.html";
+    }, 500);
+}
+
+function fadeOutCallIndex() {
+    const element = document.documentElement;
+    element.classList.remove("fade-out");
+    element.classList.remove("hide");
+    element.classList.add("fade-out");
+
+    setTimeout(() => {
+        window.location.href = "index.html";
+    }, 500);
+}
 
 
 

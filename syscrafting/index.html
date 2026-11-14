@@ -1,24 +1,17 @@
 
 <!DOCTYPE html>
-<html lang="de" class="hide_website">
+<html lang="de" class="website">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!--    <style>
-        html {
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-    </style>-->
 
     <link rel="stylesheet" href="style.css">
     <title>syscrafting.de</title>
 </head>
 
 
-<body class="page-loading">
+<body>
     <header class="logo-header">
         <img src="images/logo_website.png" class="logo-website" alt="Website Logo">
     </header>
@@ -28,11 +21,14 @@
     </main>
 
     <nav>
-        <a class="frame-link" href="ipt.html">Image Positioning Tool</a>
+        <a class="frame-link" onclick="fadeOutCallIpt(event)">Image Positioning Tool</a>
     </nav>
 
     <script src="script.js"></script>
 
+    <script>
+        hideFadeIn();
+    </script>
 </body>
 </html>
 
