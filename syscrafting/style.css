@@ -1,11 +1,15 @@
 
+* {
+    box-sizing: border-box;
+}
+
 html {
     background-color: #232629;
 }
 
 body {
     margin: 0;
-    padding: 0;
+    padding: 10px;
     color: #c6c6c6;
     background-color: #232629;
 }
@@ -71,12 +75,13 @@ html {
 
 main {
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .zoomable-img {
     cursor: pointer;
-    width: 600px;
+    width: 100;
+    max-width: 600px;
     height: auto;
     transition: transform 0.2s ease, opacity 0.2s ease;
     border-radius: 4px
@@ -108,11 +113,11 @@ main {
 }
 
 .logo-website {
-    width: 400px;
+    width: clamp(280px, 20.833vw, 400px);
     height: auto;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 5px;
+    right: 5px;
     margin-left: auto;
     opacity: 1;
     transition: none;
@@ -133,7 +138,7 @@ main {
     padding: 8px 16px;
     border: 2px solid transparent;
     text-decoration: none;
-    left: 70px;
+    left: clamp(20px, 3.646vw, 70px);
     cursor: pointer;
 }
 
@@ -158,8 +163,10 @@ main {
 
 .titel-mainpage {
     position: relative;
-    left: 20px;
+    left: clamp(14px, 1.04vw, 20px);
     color: #b9c16e;
+    font-size: clamp(24px, 1.563vw, 30px);
+    max-width: calc(100% - 300px);
 }
 
 .word-distance {

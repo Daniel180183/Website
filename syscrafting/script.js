@@ -86,21 +86,31 @@ function closeModal() {
     modal.style.display = "none";
 }
 
-const logo = document.querySelector(".logo-website");
-
 let ticking = false;
 
 function updateLogo() {
+    const logo = document.querySelector(".logo-website");
+
+    if (!logo) {
+        return;
+    }
 
     const scrollY = window.scrollY;
+
+    const startWidth = Math.min(
+        400,
+        Math.max(280, window.innerWidth * 0.20833)
+    );
 
     let progress = Math.min(scrollY / 800, 1);
 
     progress = progress * progress * (3 - 2 * progress);
 
-    const width = 400 + progress * (window.innerWidth - 400);
+    let opacityProgress = Math.min(scrollY / 200, 1);
+    opacityProgress = opacityProgress * opacityProgress * (3 - 2 * opacityProgress);
+    const opacity = 1 - (opacityProgress * 0.92);
 
-    const opacity = 1 - (progress * 0.92);
+    const width = startWidth + progress * (window.innerWidth - startWidth);
 
     logo.style.width = width + "px";
     logo.style.opacity = opacity;
@@ -153,9 +163,6 @@ function fadeOutCallIndex() {
         window.location.href = "index.html";
     }, 500);
 }
-
-
-
 
 
 
