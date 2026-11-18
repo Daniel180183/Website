@@ -1,4 +1,6 @@
 
+const downloadUrl = "https://syscrafting.de/downloads/RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz";
+
 function highlightText(element, searchTerm) {
     let text = element.textContent;
     let lowerText = text.toLowerCase();
@@ -163,6 +165,90 @@ function fadeOutCallIndex() {
         window.location.href = "index.html";
     }, 500);
 }
+
+function fadeOutCallDownloads() {
+    const element = document.documentElement;
+    element.classList.remove("fade-out");
+    element.classList.remove("hide");
+    element.classList.add("fade-out");
+
+    setTimeout(() => {
+        window.location.href = "downloads.html";
+    }, 500);
+}
+
+async function animateDownloadLink(event) {
+    const link = event.currentTarget;
+
+    // Verhindert mehrfaches Starten
+    if (link.classList.contains("animate")) {
+        return;
+    }
+
+    link.classList.add("animate");
+
+    // Wartezeit bis zum Ende der Pfeilanimation
+    await new Promise(resolve => setTimeout(resolve, 1350));
+
+    const progressFill = link.querySelector(".download-progress-fill");
+
+    try {
+        // Download anfordern
+        const response = await fetch(downloadUrl);
+
+        if (!response.ok) {
+            throw new Error("Download konnte nicht gestartet werden.");
+        }
+
+        // Gesamtgröße der Datei ermitteln
+        const totalSize = Number(response.headers.get("Content-Length"));
+
+        // Datenstrom lesen
+        const reader = response.body.getReader();
+
+        let receivedSize = 0;
+        const chunks = [];
+
+        while (true) {
+            const { done, value } = await reader.read();
+
+            if (done) break;
+
+            chunks.push(value);
+            receivedSize += value.length;
+
+            // Fortschritt berechnen
+            if (totalSize > 0) {
+                const progress = (receivedSize / totalSize) * 100;
+                progressFill.style.width = progress + "%";
+            }
+        }
+
+        // Datei zusammensetzen
+        const blob = new Blob(chunks, {
+            type: "application/gzip"
+        });
+
+        // Download im Browser auslösen
+        const url = URL.createObjectURL(blob);
+        const download = document.createElement("a");
+
+        download.href = url;
+        download.download = "RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz";
+
+        document.body.appendChild(download);
+        download.click();
+        download.remove();
+
+        URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error("Downloadfehler:", error);
+        alert("Der Download konnte nicht durchgeführt werden.");
+    }
+}
+
+
 
 
 

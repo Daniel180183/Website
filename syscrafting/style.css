@@ -253,3 +253,160 @@ main {
 }
 
 
+/* Download-Link */
+.download-link {
+    display: inline-block;
+    position: relative;
+    padding: 8px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #af4700;
+}
+
+/* Animierter Rahmen */
+.download-link::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 2px solid #af4700;
+    border-radius: 10px;
+    transition: inset 0.3s ease, border-color 0.3s ease;
+    pointer-events: none;
+}
+
+/* Hover wie bei frame-link */
+.download-link:hover::before {
+    inset: 0;
+    border-color: #d18b45;
+}
+
+/* Streifen rechts neben dem Wort */
+.download-link::after {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    width: 0;
+    height: 3px;
+    background-color: #d18b45;
+    transform: translateY(-50%);
+    opacity: 0;
+}
+
+/* Animation beim Klick */
+.download-link.animate::before {
+    animation: frame-open 0.7s ease forwards;
+}
+
+.download-link.animate::after {
+    animation: strip-flow 0.7s ease 0.35s forwards;
+}
+
+@keyframes frame-open {
+    100% {
+        clip-path: inset(0 0 0 100%);
+    }
+
+    0% {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+@keyframes strip-flow {
+    0% {
+        width: 0;
+        opacity: 1;
+    }
+
+    70% {
+        width: 140px;
+        opacity: 1;
+    }
+
+    100% {
+        width: 180px;
+        opacity: 0;
+    }
+}
+
+
+/* Download-Symbol */
+.download-symbol {
+    position: absolute;
+    left: calc(100% + 170px);
+    top: 50%;
+    width: 22px;
+    height: 22px;
+    transform: translateY(-50%);
+    overflow: visible;
+    opacity: 0;
+}
+
+/* Zeichenpfad */
+.download-symbol path {
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+}
+
+/* Symbol erscheint nach dem Streifen */
+.download-link.animate .download-symbol {
+    animation: symbol-appear 0.2s ease 0.9s forwards;
+}
+
+.download-link.animate .download-symbol path {
+    animation: symbol-draw 0.4s ease 0.95s forwards;
+}
+
+@keyframes symbol-appear {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes symbol-draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+/* Fortschrittsbalken */
+.download-progress {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 10;
+    width: 530px;
+    height: 4px;
+    background-color: #474d52;
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0;
+}
+
+/* Fortschrittsanzeige */
+.download-progress-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    background-color: #d18b45;
+    border-radius: 4px;
+}
+
+/* Balken nach dem Pfeil einblenden */
+.download-link.animate .download-progress {
+    animation: progress-appear 0.3s ease 1.4s forwards;
+}
+
+@keyframes progress-appear {
+    to {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+

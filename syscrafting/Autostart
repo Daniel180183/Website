@@ -1,0 +1,16 @@
+[Unit]
+Description=Mein eigener Server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/mein_server_ordner
+ExecStart=/usr/bin/python3 /home/pi/mein_server_ordner/server.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
