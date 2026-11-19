@@ -1,5 +1,5 @@
 
-const downloadUrl = "https://syscrafting.de/downloads/RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz";
+const downloadUrl = "/downloads/testdownload.bin";
 
 function highlightText(element, searchTerm) {
     let text = element.textContent;
@@ -185,12 +185,16 @@ async function animateDownloadLink(event) {
         return;
     }
 
+    const progressFill = link.querySelector(".download-progress-fill");
+
+    // Fortschrittsbalken vor jedem Start zurücksetzen
+    progressFill.style.width = "0%";
+
+    link.classList.remove("reset");
     link.classList.add("animate");
 
     // Wartezeit bis zum Ende der Pfeilanimation
     await new Promise(resolve => setTimeout(resolve, 1350));
-
-    const progressFill = link.querySelector(".download-progress-fill");
 
     try {
         // Download anfordern
@@ -219,10 +223,18 @@ async function animateDownloadLink(event) {
 
             // Fortschritt berechnen
             if (totalSize > 0) {
-                const progress = (receivedSize / totalSize) * 100;
+                const progress = Math.min(
+                    (receivedSize / totalSize) * 100,
+                                          100
+                );
+
                 progressFill.style.width = progress + "%";
+
+                // Browser zur Darstellung auffordern
+                await new Promise(resolve => {
+                    requestAnimationFrame(() => resolve());
+                });
             }
-        }
 
         // Datei zusammensetzen
         const blob = new Blob(chunks, {
@@ -234,13 +246,36 @@ async function animateDownloadLink(event) {
         const download = document.createElement("a");
 
         download.href = url;
-        download.download = "RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz";
+        download.download = "testdownload.bin";
 
         document.body.appendChild(download);
         download.click();
         download.remove();
 
         URL.revokeObjectURL(url);
+
+        // Download-Animation zurücksetzen
+        // Download vollständig anzeigen
+        progressFill.style.width = "100%";
+
+        // Download abgeschlossen
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Animation vollständig entfernen
+        link.classList.remove("animate");
+        link.classList.remove("reset");
+
+        // Fortschrittsbalken zurücksetzen
+        progressFill.style.width = "0%";
+
+        // Rahmen wieder sichtbar machen
+        link.classList.add("finished");
+
+        // Kurze Wartezeit
+        await new Promise(resolve => setTimeout(resolve, 400));
+
+        // Endzustand wieder entfernen
+        link.classList.remove("finished");
 
     } catch (error) {
         console.error("Downloadfehler:", error);
