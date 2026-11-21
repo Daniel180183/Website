@@ -1,6 +1,4 @@
 
-const downloadUrl = "/downloads/testdownload.bin";
-
 function highlightText(element, searchTerm) {
     let text = element.textContent;
     let lowerText = text.toLowerCase();
@@ -180,6 +178,9 @@ function fadeOutCallDownloads() {
 async function animateDownloadLink(event) {
     const link = event.currentTarget;
 
+    const downloadUrl = link.dataset.url;
+    const fileName = link.dataset.filename;
+
     // Verhindert mehrfaches Starten
     if (link.classList.contains("animate")) {
         return;
@@ -195,6 +196,11 @@ async function animateDownloadLink(event) {
 
     // Wartezeit bis zum Ende der Pfeilanimation
     await new Promise(resolve => setTimeout(resolve, 1350));
+
+    console.log("downloadUrl =", downloadUrl);
+    console.log("fileName =", fileName);
+    console.log("link.classList =", link.classList);
+    console.log("Testline");
 
     try {
         // Download anfordern
@@ -235,6 +241,7 @@ async function animateDownloadLink(event) {
                     requestAnimationFrame(() => resolve());
                 });
             }
+        }
 
         // Datei zusammensetzen
         const blob = new Blob(chunks, {
@@ -246,7 +253,7 @@ async function animateDownloadLink(event) {
         const download = document.createElement("a");
 
         download.href = url;
-        download.download = "testdownload.bin";
+        download.download = fileName;
 
         document.body.appendChild(download);
         download.click();

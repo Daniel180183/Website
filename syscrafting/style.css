@@ -375,8 +375,8 @@ main {
 .download-progress {
     position: absolute;
     top: calc(100% + 8px);
-    left: 0;
-    width: 530px;
+    left: 15;
+    width: calc(100% + 180px);
     height: 4px;
     background-color: #474d52;
     border-radius: 4px;
