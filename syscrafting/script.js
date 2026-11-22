@@ -73,18 +73,47 @@ function searchWebsite() {
     }
 }
 
+let currentZoom = 1;
+
 function openModal(imgElement) {
     const modal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
 
+    currentZoom = 1;
+
     modal.style.display = "flex";
     modalImg.src = imgElement.src;
+    modalImg.style.setProperty("--zoom", 1);
 }
 
 function closeModal() {
     const modal = document.getElementById("imgModal");
     modal.style.display = "none";
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    document.getElementById("imgModal").addEventListener("wheel", function(event) {
+
+        event.preventDefault();
+
+        console.log("Mausrad erkannt:", event.deltaY);
+
+        if (event.deltaY < 0) {
+            currentZoom += 0.1;
+        } else {
+            currentZoom -= 0.1;
+        }
+
+        currentZoom = Math.max(0.5, Math.min(currentZoom, 4));
+
+        const modalImg = document.getElementById("modalImg");
+
+        modalImg.style.setProperty("--zoom", currentZoom);
+
+    }, { passive: false });
+
+});
 
 let ticking = false;
 
@@ -181,39 +210,44 @@ async function animateDownloadLink(event) {
     const downloadUrl = link.dataset.url;
     const fileName = link.dataset.filename;
 
-    // Verhindert mehrfaches Starten
+    // Verhindert mehrfaches Starten.
     if (link.classList.contains("animate")) {
         return;
     }
 
     const progressFill = link.querySelector(".download-progress-fill");
+    const cancelButton = link.parentElement.querySelector(".download-cancel");
 
-    // Fortschrittsbalken vor jedem Start zurücksetzen
+    // Eigenen AbortController für diesen Download erstellen.
+    const controller = new AbortController();
+
+    // Fortschrittsbalken zurücksetzen.
     progressFill.style.width = "0%";
 
     link.classList.remove("reset");
     link.classList.add("animate");
 
-    // Wartezeit bis zum Ende der Pfeilanimation
-    await new Promise(resolve => setTimeout(resolve, 1350));
-
-    console.log("downloadUrl =", downloadUrl);
-    console.log("fileName =", fileName);
-    console.log("link.classList =", link.classList);
-    console.log("Testline");
-
     try {
-        // Download anfordern
-        const response = await fetch(downloadUrl);
+        // Pfeilanimation: 1350 ms, aber abbrechbar.
+        await waitWithSignal(1350, controller.signal);
+
+        // Abbrechen-Button einblenden.
+        cancelButton.hidden = false;
+        cancelButton.onclick = () => controller.abort();
+
+        // Download anfordern.
+        const response = await fetch(downloadUrl, {
+            signal: controller.signal
+        });
 
         if (!response.ok) {
             throw new Error("Download konnte nicht gestartet werden.");
         }
 
-        // Gesamtgröße der Datei ermitteln
+        // Gesamtgröße der Datei ermitteln.
         const totalSize = Number(response.headers.get("Content-Length"));
 
-        // Datenstrom lesen
+        // Datenstrom lesen.
         const reader = response.body.getReader();
 
         let receivedSize = 0;
@@ -227,7 +261,7 @@ async function animateDownloadLink(event) {
             chunks.push(value);
             receivedSize += value.length;
 
-            // Fortschritt berechnen
+            // Fortschritt berechnen.
             if (totalSize > 0) {
                 const progress = Math.min(
                     (receivedSize / totalSize) * 100,
@@ -236,19 +270,22 @@ async function animateDownloadLink(event) {
 
                 progressFill.style.width = progress + "%";
 
-                // Browser zur Darstellung auffordern
                 await new Promise(resolve => {
                     requestAnimationFrame(() => resolve());
                 });
             }
         }
 
-        // Datei zusammensetzen
+        // Download ist vollständig übertragen.
+        cancelButton.hidden = true;
+        cancelButton.onclick = null;
+
+        // Datei zusammensetzen.
         const blob = new Blob(chunks, {
             type: "application/gzip"
         });
 
-        // Download im Browser auslösen
+        // Download im Browser auslösen.
         const url = URL.createObjectURL(blob);
         const download = document.createElement("a");
 
@@ -261,35 +298,82 @@ async function animateDownloadLink(event) {
 
         URL.revokeObjectURL(url);
 
-        // Download-Animation zurücksetzen
-        // Download vollständig anzeigen
+        // Download vollständig anzeigen.
         progressFill.style.width = "100%";
 
-        // Download abgeschlossen
         await new Promise(resolve => setTimeout(resolve, 1000));
 
-        // Animation vollständig entfernen
+        // Animation vollständig entfernen.
         link.classList.remove("animate");
         link.classList.remove("reset");
 
-        // Fortschrittsbalken zurücksetzen
         progressFill.style.width = "0%";
 
-        // Rahmen wieder sichtbar machen
+        // Rahmen wieder sichtbar machen.
         link.classList.add("finished");
 
-        // Kurze Wartezeit
         await new Promise(resolve => setTimeout(resolve, 400));
 
-        // Endzustand wieder entfernen
         link.classList.remove("finished");
 
     } catch (error) {
-        console.error("Downloadfehler:", error);
-        alert("Der Download konnte nicht durchgeführt werden.");
+
+        if (error.name === "AbortError") {
+            console.log("Download wurde abgebrochen.");
+
+            // Animation zurücksetzen.
+            link.classList.remove("animate");
+            link.classList.remove("reset");
+            link.classList.remove("finished");
+
+            progressFill.style.width = "0%";
+
+        } else {
+            console.error("Downloadfehler:", error);
+            alert("Der Download konnte nicht durchgeführt werden.");
+        }
+
+    } finally {
+        // Abbrechen-Button wieder entfernen.
+        cancelButton.hidden = true;
+        cancelButton.onclick = null;
     }
 }
 
+function switchSiteStartDownloadTq() {
+    sessionStorage.removeItem("continueSwitchSiteStartDownloadTq");
+    sessionStorage.setItem("continueSwitchSiteStartDownloadTq", "true");
+
+    fadeOutCallDownloads();
+}
+
+function switchSiteStartDownloadIpt() {
+    sessionStorage.removeItem("continueSwitchSiteStartDownloadIpt");
+    sessionStorage.setItem("continueSwitchSiteStartDownloadIpt", "true");
+
+    fadeOutCallDownloads();
+}
+
+function waitWithSignal(ms, signal) {
+    return new Promise((resolve, reject) => {
+        if (signal.aborted) {
+            reject(new DOMException("Abgebrochen", "AbortError"));
+            return;
+        }
+
+        const timeout = setTimeout(() => {
+            signal.removeEventListener("abort", abort);
+            resolve();
+        }, ms);
+
+        function abort() {
+            clearTimeout(timeout);
+            reject(new DOMException("Abgebrochen", "AbortError"));
+        }
+
+        signal.addEventListener("abort", abort, { once: true });
+    });
+}
 
 
 

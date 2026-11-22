@@ -78,9 +78,28 @@ main {
     z-index: 1;
 }
 
+.zoomable-img-container {
+    position: relative;
+    display: inline-block;
+}
+
+.zoomable-img-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(80, 44, 16, 0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.zoomable-img-container:hover::after {
+    opacity: 1;
+}
+
 .zoomable-img {
     cursor: pointer;
-    width: 100;
+    width: 100%;
     max-width: 600px;
     height: auto;
     transition: transform 0.2s ease, opacity 0.2s ease;
@@ -110,6 +129,17 @@ main {
     max-height: 90%;
     border-radius: 6px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    transform: scale(var(--zoom, 1));
+    transition: transform 0.15s ease-out;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
 }
 
 .logo-website {
@@ -252,15 +282,20 @@ main {
     border-radius: 3px;
 }
 
+.download-header {
+    position: relative;
+    left: clamp(20px, 3.646vw, 70px);
+}
 
 /* Download-Link */
 .download-link {
     display: inline-block;
     position: relative;
     padding: 8px 16px;
+    font-size: 15px;
     text-decoration: none;
     cursor: pointer;
-    color: #af4700;
+    color: #b8bf6d;
 }
 
 /* Animierter Rahmen */
@@ -268,7 +303,7 @@ main {
     content: "";
     position: absolute;
     inset: 5px;
-    border: 2px solid #af4700;
+    border: 2px solid #b8bf6d;
     border-radius: 10px;
     clip-path: inset(0);
     opacity: 1;
@@ -279,7 +314,7 @@ main {
 /* Hover wie bei frame-link */
 .download-link:hover::before {
     inset: 0;
-    border-color: #d18b45;
+    border-color: #87c360;
 }
 
 /* Streifen rechts neben dem Wort */
@@ -290,7 +325,7 @@ main {
     top: 50%;
     width: 0;
     height: 3px;
-    background-color: #d18b45;
+    background-color: #87c360;
     transform: translateY(-50%);
     opacity: 0;
 }
@@ -342,6 +377,7 @@ main {
     transform: translateY(-50%);
     overflow: visible;
     opacity: 0;
+    stroke: #87c360;
 }
 
 /* Zeichenpfad */
@@ -375,7 +411,7 @@ main {
 .download-progress {
     position: absolute;
     top: calc(100% + 8px);
-    left: 15;
+    left: 15px;
     width: calc(100% + 180px);
     height: 4px;
     background-color: #474d52;
@@ -389,7 +425,7 @@ main {
     display: block;
     width: 0;
     height: 100%;
-    background-color: #d18b45;
+    background-color: #87c360;
     border-radius: 4px;
 }
 
@@ -404,16 +440,94 @@ main {
     }
 }
 
-/* Rahmen nach abgeschlossenem Download */
-
+/* Rahmen nach abgeschlossenem Download. */
 .download-link.finished::before {
     clip-path: inset(0);
     opacity: 1;
 }
 
+.arrow-list {
+    list-style: none;
+    padding: 0;
+    width: 850px;
+}
 
+.arrow-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
 
+.arrow-text {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
 
+.arrow {
+    position: relative;
+    flex: 1;
+    min-width: 36px;
+    height: 2px;
+    background-color: transparent;
+}
+
+.arrow::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 10px;
+    top: 0;
+    height: 2px;
+    background-color: #87c360;
+}
+
+.arrow::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 10px solid #87c360;
+}
+
+.arrow-end {
+    flex: 0 0 250px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Abbruch Download-Button */
+.download-item {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    position: relative;
+    left: clamp(20px, 3.646vw, 70px);
+}
+
+.download-cancel {
+    padding: 2px 2px;
+    font-size: 10px;
+    color: #b8bf6d;
+    background: transparent;
+    border: 1px solid #87c360;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+.download-cancel:hover {
+    color: white;
+    background: #367223;
+}
+
+.download-cancel[hidden] {
+    display: none;
+}
 
 
 

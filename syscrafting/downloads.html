@@ -33,57 +33,97 @@
 
     <br>
     <br>
-    <h1>Downloads</h1>
+    <h1 class="download-header">Downloads</h1>
     <br>
 
     <nav>
         <h3>
-            <a class="download-link"
-		data-url="/downloads/RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz"
-		data-filename="RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz"
-		onclick="animateDownloadLink(event)">
-                Image Positioning Tool V0.1.0.7
+            <div class="download-item">
+                <a class="download-link"
+                    data-url="/downloads/RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz"
+                    data-filename="RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz"
+                    onclick="animateDownloadLink(event)">
 
-                <svg class="download-symbol" viewBox="0 0 24 24">
-                    <path d="M12 2 V16 M6 10 L12 16 L18 10 M4 21 H20"
-                        fill="none"
-                        stroke="#d18b45"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                </svg>
+                    Image Positioning Tool V0.1.0.7
 
-                <span class="download-progress">
-                    <span class="download-progress-fill"></span>
-                </span>
-            </a>
-	</h3>
+                    <svg class="download-symbol" viewBox="0 0 24 24">
+                        <path d="M12 2 V16 M6 10 L12 16 L18 10 M4 21 H20"
+                            fill="none"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                    </svg>
 
-	<h3>
-            <a class="download-link"
-		data-url="/downloads/the_question.tar.gz"
-		data-filename="the_question.tar.gz"
-		onclick="animateDownloadLink(event)">
-                Beispielprojekt "The Question V7.0"
+                    <span class="download-progress">
+                        <span class="download-progress-fill"></span>
+                    </span>
+                </a>
 
-                <svg class="download-symbol" viewBox="0 0 24 24">
-                    <path d="M12 2 V16 M6 10 L12 16 L18 10 M4 21 H20"
-                        fill="none"
-                        stroke="#d18b45"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"/>
-                </svg>
+                <button class="download-cancel" type="button" hidden>
+                    Abbrechen
+                </button>
+            </div>
+        </h3>
 
-                <span class="download-progress">
-                    <span class="download-progress-fill"></span>
-                </span>
-            </a>
+        <h3>
+            <div class="download-item">
+                <a class="download-link"
+                    data-url="/downloads/the_question.tar.gz"
+                    data-filename="the_question.tar.gz"
+                    onclick="animateDownloadLink(event)">
+
+                    Beispielprojekt "The Question V7.0"
+
+                    <svg class="download-symbol" viewBox="0 0 24 24">
+                        <path d="M12 2 V16 M6 10 L12 16 L18 10 M4 21 H20"
+                            fill="none"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                    </svg>
+
+                    <span class="download-progress">
+                        <span class="download-progress-fill"></span>
+                    </span>
+                </a>
+
+                <button class="download-cancel" type="button" hidden>
+                    Abbrechen
+                </button>
+            </div>
         </h3>
     </nav>
-
-
-
     </main>
+
+    <script>
+        const continueFunctionTq = sessionStorage.getItem("continueSwitchSiteStartDownloadTq");
+
+        if (continueFunctionTq === "true") {
+            const continueFunctionTq = sessionStorage.removeItem("continueSwitchSiteStartDownloadTq");
+
+            const downloadLinkTq = document.querySelector('a[data-filename="the_question.tar.gz"]');
+
+            if (downloadLinkTq) {
+                animateDownloadLink({
+                    currentTarget: downloadLinkTq
+                });
+            }
+        }
+
+        const continueFunctionIpt = sessionStorage.getItem("continueSwitchSiteStartDownloadIpt");
+
+        if (continueFunctionIpt === "true") {
+            const continueFunctionIpt = sessionStorage.removeItem("continueSwitchSiteStartDownloadIpt");
+
+            const downloadLinkIpt = document.querySelector('a[data-filename="RenPy_Image_Positioning_Tool_V0.1.0.7.tar.gz"]');
+
+            if (downloadLinkIpt) {
+                animateDownloadLink({
+                    currentTarget: downloadLinkIpt
+                });
+            }
+        }
+    </script>
+
 </body>
 </html>
