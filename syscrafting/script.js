@@ -74,30 +74,99 @@ function searchWebsite() {
 }
 
 let currentZoom = 1;
+let panX = 0;
+let panY = 0;
 
 function openModal(imgElement) {
     const modal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
 
     currentZoom = 1;
+    panX = 0;
+    panY = 0;
 
-    modal.style.display = "flex";
     modalImg.src = imgElement.src;
     modalImg.style.setProperty("--zoom", 1);
+
+    modal.style.display = "flex";
+
+    // Animation Bildöffnung.
+    modal.classList.remove("open");
+
+    // Browser-Neuzeichnung abwarten.
+    void modal.offsetWidth;
+
+    modal.classList.add("open");
 }
 
 function closeModal() {
     const modal = document.getElementById("imgModal");
-    modal.style.display = "none";
+
+    modal.classList.remove("open");
+    modal.classList.add("closing");
+
+    currentZoom = 1;
+    panX = 0;
+    panY = 0;
+
+    applyImageTransform(modalImg);
+
+    setTimeout(() => {
+      modal.style.display = "none";
+      modal.classList.remove("closing");
+    }, 300);
+}
+
+function applyImageTransform(modalImg) {
+    modalImg.style.setProperty("--zoom", currentZoom);
+    modalImg.style.setProperty("--pan-x", panX + "px");
+    modalImg.style.setProperty("--pan-y", panY + "px");
+}
+
+function limitImagePosition(modal, modalImg) {
+
+    const scaledWidth = modalImg.offsetWidth * currentZoom;
+    const scaledHeight = modalImg.offsetHeight * currentZoom;
+
+    const maxX = Math.max(0, (scaledWidth - modal.clientWidth) / 2);
+    const maxY = Math.max(0, (scaledHeight - modal.clientHeight) / 2);
+
+    panX = Math.max(-maxX, Math.min(panX, maxX));
+    panY = Math.max(-maxY, Math.min(panY, maxY));
 }
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    document.getElementById("imgModal").addEventListener("wheel", function(event) {
+    const customCursor = document.getElementById("customCursor");
+
+    // Mauszeiger bewegen.
+    document.addEventListener("pointermove", function(event) {
+
+        if (modal.style.display === "flex" &&
+            event.target === modalImg)
+        {
+
+            customCursor.style.display = "flex";
+            customCursor.style.left = event.clientX + "px";
+            customCursor.style.top = event.clientY + "px";
+
+        } else {
+            customCursor.style.display = "none";
+        }
+    });
+
+    // Mauszeiger ausblenden.
+    function hideCustomCursor() {
+        customCursor.style.display = "none";
+    }
+
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+
+    // Mausrad-Zoom.
+    modal.addEventListener("wheel", function(event) {
 
         event.preventDefault();
-
-        console.log("Mausrad erkannt:", event.deltaY);
 
         if (event.deltaY < 0) {
             currentZoom += 0.1;
@@ -107,11 +176,80 @@ document.addEventListener("DOMContentLoaded", function() {
 
         currentZoom = Math.max(0.5, Math.min(currentZoom, 4));
 
-        const modalImg = document.getElementById("modalImg");
-
-        modalImg.style.setProperty("--zoom", currentZoom);
+        limitImagePosition(modal, modalImg);
+        applyImageTransform(modalImg);
 
     }, { passive: false });
+
+
+    // Variablen für das Verschieben.
+    let dragging = false;
+    let startX = 0;
+    let startY = 0;
+    let startPanX = 0;
+    let startPanY = 0;
+
+
+    // Linke Maustaste gedrückt.
+    modalImg.addEventListener("pointerdown", function(event) {
+
+        if (event.button !== 0) return;
+        if (currentZoom <= 1) return;
+
+        event.preventDefault();
+
+        dragging = true;
+
+        startX = event.clientX;
+        startY = event.clientY;
+
+        startPanX = panX;
+        startPanY = panY;
+
+        modalImg.classList.add("dragging");
+
+        modalImg.setPointerCapture(event.pointerId);
+
+        if (event.button === 0) {
+            customCursor.classList.add("grabbing");
+        }
+    });
+
+    // Linke Maustaste losgelassen.
+    document.addEventListener("pointerup", function() {
+        customCursor.classList.remove("grabbing");
+    });
+
+
+    // Maus bewegen.
+    modalImg.addEventListener("pointermove", function(event) {
+
+        if (!dragging) return;
+
+        panX = startPanX + (event.clientX - startX);
+        panY = startPanY + (event.clientY - startY);
+
+        limitImagePosition(modal, modalImg);
+        applyImageTransform(modalImg);
+
+    });
+
+    // Linke Maustaste loslassen.
+    function stopDragging() {
+
+        dragging = false;
+        modalImg.classList.remove("dragging");
+
+    }
+
+    modalImg.addEventListener("pointerup", stopDragging);
+    modalImg.addEventListener("pointercancel", stopDragging);
+
+    // Rechte Maustaste gedrückt.
+    modalImg.addEventListener("contextmenu", function(event) {
+        event.preventDefault();
+        closeModal();
+    });
 
 });
 
@@ -374,7 +512,6 @@ function waitWithSignal(ms, signal) {
         signal.addEventListener("abort", abort, { once: true });
     });
 }
-
 
 
 

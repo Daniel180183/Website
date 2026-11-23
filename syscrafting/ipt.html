@@ -28,6 +28,39 @@
 
     <main>
 
+    <div id="customCursor">
+        <span class="cursor-hand cursor-open">✋</span>
+        <span class="cursor-hand cursor-grab">✊</span>
+
+        <svg class="cursor-pointer"
+            width="20"
+            height="23"
+            viewBox="0 0 24 28"
+            xmlns="http://www.w3.org/2000/svg">
+
+            <path
+                d="M 2 1
+                    L 2 23
+                    L 8 17
+                    L 12 26
+                    L 16 24
+                    L 12 15
+                    L 21 15
+                    Z"
+                fill="black"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linejoin="round"/>
+        </svg>
+
+        <span class="cursor-zoom">✕</span>
+    </div>
+
+    <div id="imgModal"
+        class="image-modal">
+        <img id="modalImg">
+    </div>
+
     <nav>
         <h2><a class="frame-link" onclick="fadeOutCallIndex(event)">Startseite</a></h2>
         <h2><a class="frame-link" onclick="fadeOutCallDownloads(event)">Downloads</a></h2>
@@ -64,6 +97,7 @@
         <li><a href="#start_image_move">Image Move Menü starten</a></li>
         <li><a href="#load_image">Bild laden</a></li>
         <li><a href="#function_table">Funktionsübersicht</a></li>
+        <li><a href="#rotate_image">Bild drehen</a></li>
     </ol>
 
     <hr>
@@ -113,28 +147,92 @@
 
     <br>
     <h3 id="start_image_move">Image Move Menu starten</h3>
+
     <p>Nach der Installation im gewünschten Projekt sind im laufenden Spiel zwei neue Schaltflächen verfügbar.<br>
     "Show image move menu" stoppt das Spiel und blendet das Menü der Positionierungstools ein.<br>
     "Return to main menu" kehrt ohne Abfrage zum Hauptmenü zurück.</p>
 
-    <figure style="text-align: left; margin: 0;">
-        <div class="zoomable-img-container">
-            <img src="images/overlay_buttons.png"
-                alt="Bild: Overlay Schaltflächen im laufenden Spiel."
-                class="zoomable-img"
-                onclick="openModal(this)">
-        </div>
-        <figcaption>Overlay Schaltflächen im laufenden Spiel</figcaption>
-    </figure>
+    <div class="image-row">
 
-    <div id="imgModal" class="image-modal" onclick="closeModal()">
-        <img id="modalImg">
+        <figure style="text-align: left; margin: 0;">
+            <div class="zoomable-img-container">
+                <img src="images/overlay_buttons.png"
+                    alt="Bild: Overlay Schaltflächen im laufenden Spiel."
+                    class="zoomable-img"
+                    onclick="openModal(this)">
+            </div>
+            <figcaption>Overlay Schaltflächen im laufenden Spiel.</figcaption>
+        </figure>
+
+        <figure style="text-align: left; margin: 0;">
+            <div class="zoomable-img-container">
+                <img src="images/image_move_menu.png"
+                    alt="Bild: Overlay Menü im laufenden Spiel."
+                    class="zoomable-img"
+                    onclick="openModal(this)">
+            </div>
+            <figcaption>Overlay Menü im laufenden Spiel.</figcaption>
+        </figure>
+
     </div>
 
     <br>
     <h3 id="load_image">Bild laden</h3>
 
+    <p>"Input file location": In dieses Eingabefeld kann der Name der gewünschten Bilddatei inklusive Endung eingegeben werden. Unterstützte Bildformate sind png, jpg, jpeg, webp, avif und svg. Die Bilder müssen sich im Projektordner befinden. Eventuelle Unterordner müssen mit eingegeben werden.</p>
+
+    <div class="image-row">
+
+        <figure style="text-align: left; margin: 0;">
+            <div class="zoomable-img-container">
+                <img src="images/open_enter_image.png"
+                    alt="Bild: Eingabefeld Bilddateien öffnen."
+                    class="zoomable-img"
+                    onclick="openModal(this)">
+            </div>
+            <figcaption>Eingabefeld Bilddateien öffnen.</figcaption>
+        </figure>
+
+        <figure style="text-align: left; margin: 0;">
+            <div class="zoomable-img-container">
+                <img src="images/enter_image.png"
+                    alt="Bild: Eingabefeld Bilddateien."
+                    class="zoomable-img"
+                    onclick="openModal(this)">
+            </div>
+            <figcaption>Eingabefeld Bilddateien.</figcaption>
+        </figure>
+
+    </div>
+
+    <br>
+    <h3 id="rotate_image">Bild drehen</h3>
+
     <p>In Entwicklung...</p>
+
+    <div class="image-row">
+
+        <figure style="text-align: left; margin: 0;">
+            <div class="zoomable-img-container">
+                <img src="images/edit_image_rotate_left.png"
+                    alt="Bild: links drehen."
+                    class="zoomable-img"
+                    onclick="openModal(this)">
+            </div>
+            <figcaption>Bild nach links drehen.</figcaption>
+        </figure>
+
+        <figure style="text-align: left; margin: 0;">
+            <div class="zoomable-img-container">
+                <img src="images/edit_image_rotate_right.png"
+                    alt="Bild: rechts drehen."
+                    class="zoomable-img"
+                    onclick="openModal(this)">
+            </div>
+            <figcaption>Bild nach rechts drehen.</figcaption>
+        </figure>
+
+    </div>
 
     <h3 id="function_table">Funktionsübersicht</h3>
     <table id="function_table_content">
