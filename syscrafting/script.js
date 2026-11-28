@@ -81,6 +81,10 @@ function openModal(imgElement) {
     const modal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
 
+    if (!modal || !modalImg) {
+        return;
+    }
+
     currentZoom = 1;
     panX = 0;
     panY = 0;
@@ -101,6 +105,11 @@ function openModal(imgElement) {
 
 function closeModal() {
     const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+
+    if (!modal || !modalImg) {
+        return;
+    }
 
     modal.classList.remove("open");
     modal.classList.add("closing");
@@ -138,119 +147,120 @@ function limitImagePosition(modal, modalImg) {
 document.addEventListener("DOMContentLoaded", function() {
 
     const customCursor = document.getElementById("customCursor");
-
-    // Mauszeiger bewegen.
-    document.addEventListener("pointermove", function(event) {
-
-        if (modal.style.display === "flex" &&
-            event.target === modalImg)
-        {
-
-            customCursor.style.display = "flex";
-            customCursor.style.left = event.clientX + "px";
-            customCursor.style.top = event.clientY + "px";
-
-        } else {
-            customCursor.style.display = "none";
-        }
-    });
-
-    // Mauszeiger ausblenden.
-    function hideCustomCursor() {
-        customCursor.style.display = "none";
-    }
-
     const modal = document.getElementById("imgModal");
     const modalImg = document.getElementById("modalImg");
 
-    // Mausrad-Zoom.
-    modal.addEventListener("wheel", function(event) {
+    if (modal && modalImg && customCursor) {
 
-        event.preventDefault();
+        // Mauszeiger bewegen.
+        document.addEventListener("pointermove", function(event) {
 
-        if (event.deltaY < 0) {
-            currentZoom += 0.1;
-        } else {
-            currentZoom -= 0.1;
+            if (modal.style.display === "flex" &&
+                event.target === modalImg)
+            {
+
+                customCursor.style.display = "flex";
+                customCursor.style.left = event.clientX + "px";
+                customCursor.style.top = event.clientY + "px";
+
+            } else {
+                customCursor.style.display = "none";
+            }
+        });
+
+        // Mauszeiger ausblenden.
+        function hideCustomCursor() {
+            customCursor.style.display = "none";
         }
 
-        currentZoom = Math.max(0.5, Math.min(currentZoom, 4));
+        // Mausrad-Zoom.
+        modal.addEventListener("wheel", function(event) {
 
-        limitImagePosition(modal, modalImg);
-        applyImageTransform(modalImg);
+            event.preventDefault();
 
-    }, { passive: false });
+            if (event.deltaY < 0) {
+                currentZoom += 0.1;
+            } else {
+                currentZoom -= 0.1;
+            }
+
+            currentZoom = Math.max(0.5, Math.min(currentZoom, 4));
+
+            limitImagePosition(modal, modalImg);
+            applyImageTransform(modalImg);
+
+        }, { passive: false });
 
 
-    // Variablen für das Verschieben.
-    let dragging = false;
-    let startX = 0;
-    let startY = 0;
-    let startPanX = 0;
-    let startPanY = 0;
+        // Variablen für das Verschieben.
+        let dragging = false;
+        let startX = 0;
+        let startY = 0;
+        let startPanX = 0;
+        let startPanY = 0;
 
 
-    // Linke Maustaste gedrückt.
-    modalImg.addEventListener("pointerdown", function(event) {
+        // Linke Maustaste gedrückt.
+        modalImg.addEventListener("pointerdown", function(event) {
 
-        if (event.button !== 0) return;
-        if (currentZoom <= 1) return;
+            if (event.button !== 0) return;
+            if (currentZoom <= 1) return;
 
-        event.preventDefault();
+            event.preventDefault();
 
-        dragging = true;
+            dragging = true;
 
-        startX = event.clientX;
-        startY = event.clientY;
+            startX = event.clientX;
+            startY = event.clientY;
 
-        startPanX = panX;
-        startPanY = panY;
+            startPanX = panX;
+            startPanY = panY;
 
-        modalImg.classList.add("dragging");
+            modalImg.classList.add("dragging");
 
-        modalImg.setPointerCapture(event.pointerId);
+            modalImg.setPointerCapture(event.pointerId);
 
-        if (event.button === 0) {
-            customCursor.classList.add("grabbing");
+            if (event.button === 0) {
+                customCursor.classList.add("grabbing");
+            }
+        });
+
+        // Linke Maustaste losgelassen.
+        document.addEventListener("pointerup", function() {
+            customCursor.classList.remove("grabbing");
+        });
+
+
+        // Maus bewegen.
+        modalImg.addEventListener("pointermove", function(event) {
+
+            if (!dragging) return;
+
+            panX = startPanX + (event.clientX - startX);
+            panY = startPanY + (event.clientY - startY);
+
+            limitImagePosition(modal, modalImg);
+            applyImageTransform(modalImg);
+
+        });
+
+        // Linke Maustaste loslassen.
+        function stopDragging() {
+
+            dragging = false;
+            modalImg.classList.remove("dragging");
+
         }
-    });
 
-    // Linke Maustaste losgelassen.
-    document.addEventListener("pointerup", function() {
-        customCursor.classList.remove("grabbing");
-    });
+        modalImg.addEventListener("pointerup", stopDragging);
+        modalImg.addEventListener("pointercancel", stopDragging);
 
-
-    // Maus bewegen.
-    modalImg.addEventListener("pointermove", function(event) {
-
-        if (!dragging) return;
-
-        panX = startPanX + (event.clientX - startX);
-        panY = startPanY + (event.clientY - startY);
-
-        limitImagePosition(modal, modalImg);
-        applyImageTransform(modalImg);
-
-    });
-
-    // Linke Maustaste loslassen.
-    function stopDragging() {
-
-        dragging = false;
-        modalImg.classList.remove("dragging");
-
+        // Rechte Maustaste gedrückt.
+        modalImg.addEventListener("contextmenu", function(event) {
+            event.preventDefault();
+            closeModal();
+        });
     }
-
-    modalImg.addEventListener("pointerup", stopDragging);
-    modalImg.addEventListener("pointercancel", stopDragging);
-
-    // Rechte Maustaste gedrückt.
-    modalImg.addEventListener("contextmenu", function(event) {
-        event.preventDefault();
-        closeModal();
-    });
-
 });
 
 let ticking = false;

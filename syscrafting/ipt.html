@@ -152,7 +152,7 @@
     "Show image move menu" stoppt das Spiel und blendet das Menü der Positionierungstools ein.<br>
     "Return to main menu" kehrt ohne Abfrage zum Hauptmenü zurück.</p>
 
-    <div class="image-row">
+    <div class="image-column">
 
         <figure style="text-align: left; margin: 0;">
             <div class="zoomable-img-container">
@@ -181,7 +181,7 @@
 
     <p>"Input file location": In dieses Eingabefeld kann der Name der gewünschten Bilddatei inklusive Endung eingegeben werden. Unterstützte Bildformate sind png, jpg, jpeg, webp, avif und svg. Die Bilder müssen sich im Projektordner befinden. Eventuelle Unterordner müssen mit eingegeben werden.</p>
 
-    <div class="image-row">
+    <div class="image-column">
 
         <figure style="text-align: left; margin: 0;">
             <div class="zoomable-img-container">
@@ -208,31 +208,84 @@
     <br>
     <h3 id="rotate_image">Bild drehen</h3>
 
-    <p>In Entwicklung...</p>
+    <p>Rotate left und Rotate right drehen das Bild nach links oder rechts.</p>
 
-    <div class="image-row">
+    <div class="image-column">
 
-        <figure style="text-align: left; margin: 0;">
-            <div class="zoomable-img-container">
-                <img src="images/edit_image_rotate_left.png"
-                    alt="Bild: links drehen."
-                    class="zoomable-img"
-                    onclick="openModal(this)">
+        <div class="image-large-group">
+            <figure>
+                <div class="zoomable-img-container">
+                    <img src="images/edit_image_rotate_left.png"
+                        alt="Bild: links drehen."
+                        class="zoomable-img"
+                        onclick="openModal(this)">
+                </div>
+                <figcaption>Bild nach links drehen.</figcaption>
+            </figure>
+
+            <figure>
+                <div class="zoomable-img-container">
+                    <img src="images/edit_image_rotate_right.png"
+                        alt="Bild: rechts drehen."
+                        class="zoomable-img"
+                        onclick="openModal(this)">
+                </div>
+                <figcaption>Bild nach rechts drehen.</figcaption>
+            </figure>
+        </div>
+
+        <figure class="image-grid-figure">
+            <div class="image-2column-2row">
+
+                <figure style="text-align: left; margin: 0;">
+                    <div class="zoomable-img-container">
+                        <img src="images/rotate_range_plus.png"
+                            alt="Bild: Rotationsbereich verringern."
+                            class="zoomable-img"
+                            style="transform: rotate(180deg);"
+                            onclick="openModal(this)">
+                    </div>
+                </figure>
+
+                <figure style="text-align: left; margin: 0;">
+                    <div class="zoomable-img-container">
+                        <img src="images/rotate_range_minus.png"
+                            alt="Bild: Rotationsbereich erhöhen."
+                            class="zoomable-img"
+                            style="transform: rotate(180deg);"
+                            onclick="openModal(this)">
+                    </div>
+                </figure>
+
+                <figure style="text-align: left; margin: 0;">
+                    <div class="zoomable-img-container">
+                        <img src="images/rotate_range_minus.png"
+                            alt="Bild: Rotationsbereich erhöhen."
+                            class="zoomable-img"
+                            onclick="openModal(this)">
+                    </div>
+                </figure>
+
+                <figure style="text-align: left; margin: 0;">
+                    <div class="zoomable-img-container">
+                        <img src="images/rotate_range_minus.png"
+                            alt="Bild: Rotationsbereich erhöhen."
+                            class="zoomable-img"
+                            onclick="openModal(this)">
+                    </div>
+                </figure>
             </div>
-            <figcaption>Bild nach links drehen.</figcaption>
-        </figure>
-
-        <figure style="text-align: left; margin: 0;">
-            <div class="zoomable-img-container">
-                <img src="images/edit_image_rotate_right.png"
-                    alt="Bild: rechts drehen."
-                    class="zoomable-img"
-                    onclick="openModal(this)">
-            </div>
-            <figcaption>Bild nach rechts drehen.</figcaption>
+            <figure>
+                <figcaption>Drehbereich mit "+", "-" oder Eingabe der "Rotate Range" festlegen.</figcaption>
+            </figure>
         </figure>
 
     </div>
+
+    <br>
+    <h3 id="zoom_image">Bild zoomen</h3>
+
+    <p>Zoom + und Zoom - zoom das Bild herein und hinaus.</p>
 
     <h3 id="function_table">Funktionsübersicht</h3>
     <table id="function_table_content">
